@@ -9,6 +9,9 @@ let sprites = [
 	"sprites/questionblock.gif"
 ]
 
+// Eraser sprite
+let eraser = "sprites/eraser.cur";
+
 // Canvas
 const canvas = document.querySelector('#canvas');
 const body = document.querySelector('body');
@@ -19,13 +22,21 @@ let selector = 0;
 const selectSprite = (e) => {
 	// If 'e' or 'q' is pressed, cycle through sprites array accordingly
 	let keyCode = e.keyCode;
-	let eraser = "sprites/eraser.cur";
-	if (keyCode === 69) selector++;
-	if (keyCode === 81) selector--;
-	// If key 'r' is pressed, use eraser tool
-	if (keyCode === 82) {
-		canvas.style.cursor = `url(${eraser}), auto`;
-		return;
+
+	switch (keyCode) {
+		case 69:
+			selector++;
+			break;
+		case 81:
+			selector--;
+			break;
+		case 82:
+			if (canvas.style.cursor ===  `url("${eraser}"), auto`) {
+				canvas.style.cursor = `url(${sprites[selector]}), auto`;
+			} else {
+				canvas.style.cursor = `url(${eraser}), auto`;
+				return;
+			}
 	}
 
 	// Selector wraps around if value overflows sprites array length
@@ -40,7 +51,7 @@ body.addEventListener('keydown', selectSprite);
 const pasteSprite = (e) => {
 	const target = e.target;
 	// if the eraser cursor isn't active, proceed to paste sprite
-	if (canvas.style.cursor !==  `url("sprites/eraser.cur"), auto`) {
+	if (canvas.style.cursor !==  `url("${eraser}"), auto`) {
 		// Create div to hold sprite image
 		const div = document.createElement('div');
 		div.className = 'sprite';
