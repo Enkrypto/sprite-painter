@@ -21,8 +21,9 @@ const canvas = document.querySelector('#canvas');
 const body = document.querySelector('body');
 
 // Menu buttons
-const charButton = document.querySelector('#char');
-const terrButton = document.querySelector('#terrain')
+const charBtn = document.querySelector('#char');
+const terrBtn = document.querySelector('#terrain');
+const resetBtn = document.querySelector('#reset');
 
 // Select sprite subarray: character or terrain
 let arrSelect = 0;
@@ -116,5 +117,16 @@ let changeSpr = e => {
 }
 
 // Listen for when the menu buttons are clicked. Switch selected array accordingly.
-charButton.addEventListener('click', changeSpr);
-terrButton.addEventListener('click', changeSpr);
+charBtn.addEventListener('click', changeSpr);
+terrBtn.addEventListener('click', changeSpr);
+
+// Reset canvas
+const reset = () => {
+	// While canvas still has a children nodes, remove the first child
+	while (canvas.firstChild) canvas.removeChild(canvas.firstChild);
+	// Set canvas background color back to white
+	canvas.style.backgroundColor = 'white';
+}
+
+// Reset canvas when 'reset' button is pressed
+resetBtn.addEventListener('click', reset);
