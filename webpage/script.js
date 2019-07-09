@@ -22,7 +22,6 @@ const body = document.querySelector('body');
 
 // Menu buttons
 const charButton = document.querySelector('#char');
-console.log(charButton);
 const terrButton = document.querySelector('#terrain')
 
 // Select sprite subarray: character or terrain
@@ -35,7 +34,9 @@ let sprSelect = 0;
 const selectSprite = (e) => {
 	// If 'e' or 'q' is pressed, cycle through sprites subarray accordingly.
 	// If 'r' is pressed, activate erase tool.
-	let keyCode = e.keyCode;
+	const keyCode = e.keyCode;
+	const sprArr = sprites[arrSelect];
+	let sprite = sprites[arrSelect][sprSelect];
 
 	switch (keyCode) {
 		case 69:
@@ -47,18 +48,20 @@ const selectSprite = (e) => {
 		case 82:
 			// If erase tool is active, toggle it off
 			if (canvas.style.cursor ===  `url("${eraser}"), auto`) {
-				canvas.style.cursor = `url(${sprites[arrSelect][sprSelect]}), auto`;
+				canvas.style.cursor = `url(${sprite}), auto`;
 			// Otherwise, toggle it on
 			} else {
 				canvas.style.cursor = `url(${eraser}), auto`;
 				return;
 			}
 	}
+	
 
 	// Selector wraps around if value overflows sprites subarray length
-	if (sprSelect < 0) sprSelect = sprites[arrSelect].length - 1;
-	if (sprSelect > sprites[arrSelect].length - 1) sprSelect = 0;
-	canvas.style.cursor = `url(${sprites[arrSelect][sprSelect]}), auto`;
+	if (sprSelect < 0) sprSelect = sprArr.length - 1;
+	if (sprSelect > sprArr.length - 1) sprSelect = 0;
+	sprite = sprites[arrSelect][sprSelect];
+	canvas.style.cursor = `url(${sprite}), auto`;
 }
 
 body.addEventListener('keydown', selectSprite);
@@ -74,10 +77,12 @@ const pasteSprite = (e) => {
 		div.style.left = `${e.layerX}px`;
 		div.style.top = `${e.layerY}px`;
 
-		// Create sprite image and add it to div
+		// Create sprite image
 		const img = sprites[arrSelect][sprSelect];
 		const sprite = document.createElement('img');
 		sprite.src = img;
+		
+		// Append it to div
 		div.appendChild(sprite);
 
 		// Append div to canvas
