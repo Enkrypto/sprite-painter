@@ -25,14 +25,16 @@ const charButton = document.querySelector('#char');
 console.log(charButton);
 const terrButton = document.querySelector('#terrain')
 
-// Select sprite array: character or terrain
+// Select sprite subarray: character or terrain
 let arrSelect = 0;
 
-// Select different sprite and change cursor accordingly
+// Select sprite in subarray
 let sprSelect = 0;
 
+// Change cursor to selected sprite
 const selectSprite = (e) => {
-	// If 'e' or 'q' is pressed, cycle through sprites array accordingly. If 'r' is pressed, activate erase tool.
+	// If 'e' or 'q' is pressed, cycle through sprites subarray accordingly.
+	// If 'r' is pressed, activate erase tool.
 	let keyCode = e.keyCode;
 
 	switch (keyCode) {
@@ -53,7 +55,7 @@ const selectSprite = (e) => {
 			}
 	}
 
-	// Selector wraps around if value overflows sprites array length
+	// Selector wraps around if value overflows sprites subarray length
 	if (sprSelect < 0) sprSelect = sprites[arrSelect].length - 1;
 	if (sprSelect > sprites[arrSelect].length - 1) sprSelect = 0;
 	canvas.style.cursor = `url(${sprites[arrSelect][sprSelect]}), auto`;
