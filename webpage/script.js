@@ -30,6 +30,11 @@ let arrSelect = 0;
 // Select sprite in subarray
 let sprSelect = 0;
 
+// Generate random number
+let ranNum = () => {
+	return Math.floor(Math.random() * 100)
+}
+
 // Change cursor to selected sprite
 const selectSprite = (e) => {
 	// If 'e' or 'q' is pressed, cycle through sprites subarray accordingly.
@@ -54,6 +59,12 @@ const selectSprite = (e) => {
 				canvas.style.cursor = `url(${eraser}), auto`;
 				return;
 			}
+		case 84:
+			// Generate random color
+			const ranColor = `rgb(${ranNum()}, ${ranNum()}, ${ranNum()}`;
+			// Set background color to random color
+			canvas.style.backgroundColor = ranColor;
+
 	}
 	
 
@@ -81,7 +92,7 @@ const pasteSprite = (e) => {
 		const img = sprites[arrSelect][sprSelect];
 		const sprite = document.createElement('img');
 		sprite.src = img;
-		
+
 		// Append it to div
 		div.appendChild(sprite);
 
