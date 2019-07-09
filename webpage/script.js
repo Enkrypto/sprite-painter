@@ -20,7 +20,7 @@ const body = document.querySelector('body');
 let selector = 0;
 
 const selectSprite = (e) => {
-	// If 'e' or 'q' is pressed, cycle through sprites array accordingly
+	// If 'e' or 'q' is pressed, cycle through sprites array accordingly. If 'r' is pressed, activate erase tool.
 	let keyCode = e.keyCode;
 
 	switch (keyCode) {
@@ -31,8 +31,10 @@ const selectSprite = (e) => {
 			selector--;
 			break;
 		case 82:
+			// If erase tool is active, toggle it off
 			if (canvas.style.cursor ===  `url("${eraser}"), auto`) {
 				canvas.style.cursor = `url(${sprites[selector]}), auto`;
+			// Otherwise, toggle it on
 			} else {
 				canvas.style.cursor = `url(${eraser}), auto`;
 				return;
