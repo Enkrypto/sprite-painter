@@ -38,29 +38,26 @@ body.addEventListener('keydown', selectSprite);
 
 // Paste sprite to canvas
 const pasteSprite = (e) => {
-	// If the eraser cursor is active and the item clicked is a sprite, delete the sprite
-	if (canvas.style.cursor === `url("sprites/eraser.cur"), auto` &&  e.target.parentNode.className === 'sprite') { 
-		const target = e.target;
-		e.target.parentNode.removeChild(target);
-		return;
-	// Otherwise, if the eraser cursor is active, don't paste sprite from sprite array at selector index
-	} else if (canvas.style.cursor === `url("sprites/eraser.cur"), auto`) {
-		return;                                                               
+	const target = e.target;
+	// if the eraser cursor isn't active, proceed to paste sprite
+	if (canvas.style.cursor !==  `url("sprites/eraser.cur"), auto`) {
+		// Create div to hold sprite image
+		const div = document.createElement('div');
+		div.className = 'sprite';
+		div.style.left = `${e.layerX}px`;
+		div.style.top = `${e.layerY}px`;
+
+		// Create sprite image and add it to div
+		const img = sprites[selector];
+		const sprite = document.createElement('img');
+		sprite.src = img;
+		div.appendChild(sprite);
+
+		// Append div to canvas
+		target.appendChild(div);
+	} else if (target.parentNode.className === 'sprite') { // Otherwise, if the eraser cursor is active and the item clicked is a sprite, delete the sprite
+		target.parentNode.removeChild(target);
 	}
-	// Create div to hold sprite image
-	const div = document.createElement('div');
-	div.className = 'sprite';
-	div.style.left = `${e.layerX}px`;
-	div.style.top = `${e.layerY}px`;
-
-	// Create sprite image and add it to div
-	const img = sprites[selector];
-	const sprite = document.createElement('img');
-	sprite.src = img;
-	div.appendChild(sprite);
-
-	// Append div to canvas
-	e.target.appendChild(div);
 }
 
 // Listen for when right/left mouse are clicked
