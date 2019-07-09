@@ -9,11 +9,6 @@
 	margin: 2em;
 }
 
-body {
-	width: 100%;
-	height: 100%;
-}
-
 div .sprite {
 	position: absolute;
 	display: inline-block;
