@@ -18,13 +18,9 @@ let selector = 0;
 
 const selectSprite = (e) => {
 	// If 'e' or 'q' is pressed, cycle through sprites array accordingly
-	switch (e.keyCode) {
-		case 69: 
-		selector++;
-		break;
-		case 81:
-		selector--;
-	}
+	let keyCode = e.keyCode;
+	if (keyCode === 69) selector++;
+	if (keyCode === 81) selector--;
 
 	// Selector wraps around if value overflows sprites array length
 	if (selector < 0) selector = sprites.length - 1;
