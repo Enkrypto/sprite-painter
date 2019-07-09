@@ -19,8 +19,14 @@ let selector = 0;
 const selectSprite = (e) => {
 	// If 'e' or 'q' is pressed, cycle through sprites array accordingly
 	let keyCode = e.keyCode;
+	let eraser = "sprites/eraser.cur";
 	if (keyCode === 69) selector++;
 	if (keyCode === 81) selector--;
+	// If key 'r' is pressed, use eraser tool
+	if (keyCode === 82) {
+		canvas.style.cursor = `url(${eraser}), auto`;
+		return;
+	}
 
 	// Selector wraps around if value overflows sprites array length
 	if (selector < 0) selector = sprites.length - 1;
@@ -32,10 +38,18 @@ body.addEventListener('keydown', selectSprite);
 
 // Paste sprite to canvas
 const pasteSprite = (e) => {
+	// If the eraser cursor is active and the item clicked is a sprite, delete the sprite
+	if (canvas.style.cursor === `url("sprites/eraser.cur"), auto` &&  e.target.parentNode.className === 'sprite') { 
+		const target = e.target;
+		e.target.parentNode.removeChild(target);
+		return;
+	// Otherwise, if the eraser cursor is active, don't paste sprite from sprite array at selector index
+	} else if (canvas.style.cursor === `url("sprites/eraser.cur"), auto`) {
+		return;                                                               
+	}
 	// Create div to hold sprite image
 	const div = document.createElement('div');
 	div.className = 'sprite';
-	console.log(e);	
 	div.style.left = `${e.layerX}px`;
 	div.style.top = `${e.layerY}px`;
 
