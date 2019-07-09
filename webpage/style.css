@@ -1,7 +1,7 @@
 #canvas {
 	cursor: url(sprites/bloober.gif), auto;
 	position: absolute;
-	top: 130px;
+	top: 11em;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -22,6 +22,7 @@ h1, p, button {
 
 div #buttons {
 	text-align: center;
+	margin-top: 1.5em;
 }
 
 button {
