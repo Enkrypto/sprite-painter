@@ -120,6 +120,7 @@ let changeSpr = e => {
 
 	// Refresh cursor
 	canvas.style.cursor = `url(${sprites[arrSelect][0]}), auto`;
+	sprSelect = 0;
 }
 
 // Listen for when the menu buttons are clicked. Switch selected array accordingly.
