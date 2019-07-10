@@ -25,6 +25,9 @@ const charBtn = document.querySelector('#char');
 const terrBtn = document.querySelector('#terrain');
 const resetBtn = document.querySelector('#reset');
 
+// Paste sound effect
+const snd = new Audio('blop.wav');
+
 // Select sprite subarray: character or terrain
 let arrSelect = 0;
 
@@ -99,6 +102,9 @@ const pasteSprite = (e) => {
 
 		// Append div to canvas
 		target.appendChild(div);
+
+		// Play sound effect
+		snd.play();
 	} else if (target.parentNode.className === 'sprite') { // Otherwise, if the eraser cursor is active and the item clicked is a sprite, delete the sprite
 		target.parentNode.removeChild(target);
 	}
